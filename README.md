@@ -1,91 +1,89 @@
 # ✨ Synapse — Neuro-Inclusive Browser Extension
 
-> A premium, AI-powered Chrome extension that transforms any webpage into a distraction-free, cognitively ergonomic reading environment.
+> A calm, premium, and AI-powered Chrome extension that transforms any webpage into a distraction-free, cognitively ergonomic reading environment.
 
 ---
 
-## 🧠 What It Does
+## 🧠 Why Synapse?
 
-Synapse surgically dismantles the hostile architecture of the modern web and rebuilds it as a calm, accessible experience for users with **ADHD**, **Autism (ASD)**, and **Dyslexia**.
+The modern web is built with **hostile architecture**: flashing ads, autoplaying videos, complex sentence structures, and a lack of emotional context. For users with **ADHD**, **Autism (ASD)**, or **Dyslexia**, this creates a high cognitive load that makes reading exhausting.
+
+Synapse dismantles this clutter and rebuilds it using a design system inspired by **Notion** and **Kindle**—focused on deep focus and readability.
 
 ---
 
-## ⚡ Feature Suite
+## ⚡ Key Features
 
-| Feature | Benefit |
+| Feature | How it helps |
 |---|---|
-| **Groq AI Simplification** | One-click rewrite of any article into plain English bullet points |
-| **Cognitive Load Scorer** | Flesch Grade + link-density analysis before AI even touches the page |
-| **Karaoke-Style TTS** | Word-by-word highlighting synced to the browser's speech engine |
-| **Bionic Reading Mode** | Bolds the first half of every word to create ADHD fixation points |
-| **Dyslexic Font** | Instantly rewrites all text in OpenDyslexic / Comic Sans |
-| **Sensory Dimming** | Blurs/grayscales all media and ads to prevent overload |
-| **DOM Caching** | Closing the reader never triggers a second API call |
-| **Floating Restore Badge** | One-click re-open with zero lag |
-| **Onboarding Guide** | Explains every feature to new users |
+| **AI Simplification** | Rewrites complex articles into plain-English bullet points via **Groq AI**. |
+| **Cognitive Load Scorer** | Shows you a complexity score (0-100) before you start reading. |
+| **Bionic Reading** | Bolds the start of words to create "fixation points" that help the brain scan text faster. |
+| **Karaoke-Style TTS** | Reads aloud with real-time word highlighting to keep you on track. |
+| **Emotion Mapping** | Labels the emotional tone of paragraphs (Sarcastic, Urgent, Sad, etc.) to help with social processing. |
+| **Sensory Dimming** | Automatically blurs distracting images and pauses videos until you hover over them. |
+| **Accessibility Fonts** | One-click toggle for **OpenDyslexic** or **Comic Sans** to aid word recognition. |
 
 ---
 
-## 📁 Project Structure
+## 🎨 Design Philosophy: "Zen Reader"
+
+We moved away from neon glows and high-contrast gradients to create a truly "Zen" environment:
+- **Calm Palette**: Soft dark background (`#0F1115`) with subtle glassmorphic surfaces.
+- **Typography**: Clean, professional `Outfit` font with optimized line-height (1.8) and sizing (21px).
+- **Interactive Micro-animations**: Smooth transitions that guide the eye without being distracting.
+
+---
+
+## 📁 Project Structure (Modular & Clean)
 
 ```
 synapse/
-├── background.js          # Service worker entry point
-├── content.js             # Injected reader UI entry point
-├── config.js              # ← PUT YOUR API KEY HERE
-├── manifest.json          # Chrome Extension manifest (MV3)
+├── background.js          # Main service worker pipeline
+├── content.js             # Entry point for the reader UI (runtime bundle)
+├── config.js              # ← Your Groq API Key goes here
+├── manifest.json          # Chrome Extension Manifest (MV3)
 │
-└── src/
+└── src/                   # Readable, modular source code
     ├── background/
-    │   └── groqClient.js        # Groq API client (model discovery, JSON mode)
+    │   └── groqClient.js  # Smart model discovery & API handling
     ├── content/
-    │   └── domExtractor.js      # Aggressive DOM extraction engine
+    │   ├── domExtractor.js # Intelligent article scraper & noise filter
+    │   ├── mediaControl.js # Sensory dimming & distractions manager
+    │   ├── renderer.js     # UI card generation & status updates
+    │   ├── ttsEngine.js    # Karaoke-style highlighters
+    │   └── zenReader.js    # The primary overlay & settings manager
     └── utils/
-        ├── bionicText.js        # Bionic Reading pre-processor
-        └── cognitiveScorer.js   # Flesch Reading Grade calculator
+        ├── bionicText.js   # Bionic Reading engine
+        └── cognitiveScorer.js # Page complexity algorithm
 ```
 
 ---
 
-## 🚀 Setup
+## 🚀 Getting Started
 
-### 1. Get a free Groq API key
-→ [console.groq.com](https://console.groq.com)
+### 1. Get a Groq API Key
+Head over to [console.groq.com](https://console.groq.com) and grab a free API key.
 
-### 2. Add your key
-Open `config.js` and replace the placeholder:
-```js
-export const GROQ_API_KEY = "gsk_your_actual_key_here";
+### 2. Configure the Extension
+Open `config.js` and paste your key:
+```javascript
+export const GROQ_API_KEY = "your_key_here";
 ```
 
-### 3. Load the extension
-1. Open Chrome → `chrome://extensions`
-2. Enable **Developer Mode** (top right)
-3. Click **Load unpacked**
-4. Select the `synapse/` folder
-
-### 4. Use it
-Navigate to any article or GitHub profile → click the **Synapse** icon in your toolbar.
+### 3. Load into Chrome
+1. Go to `chrome://extensions`.
+2. Turn on **Developer Mode**.
+3. Click **Load unpacked** and select the folder.
 
 ---
 
-## 🏗️ Tech Stack
-
-- **Runtime**: Chrome Extension Manifest V3
-- **AI Backend**: [Groq](https://groq.com) — `llama-3.1-8b-instant` on LPU hardware
-- **Frontend**: Vanilla JS + CSS Glassmorphism (no frameworks)
-- **Design**: Dark mode, `Outfit` font, neon-pastel palette, `backdrop-filter` glass
-
----
-
-## 🧪 Tests
-
-```bash
-npm test
-```
+## 🏗️ Technical Specs
+- **AI Models**: Priority pool [ `llama3-8b-8192` → `mixtral-8x7b` ] for maximum speed and up to 30K TPM.
+- **Backend**: Groq LPU Network for near-instant text simplification.
+- **Frontend**: Vanilla Javascript & Clean CSS (Zero overhead, zero frameworks).
 
 ---
 
 ## 📄 License
-
 MIT © Ishaan Bansal
