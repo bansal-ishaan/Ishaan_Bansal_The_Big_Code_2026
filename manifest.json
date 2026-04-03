@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Neuro-Inclusive Web Interface",
+  "name": "Synapse",
   "version": "1.0",
   "description": "Dynamically simplifies web layouts and text for cognitive accessibility.",
   "permissions": [

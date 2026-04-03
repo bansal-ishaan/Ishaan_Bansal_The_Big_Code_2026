@@ -1,15 +1,16 @@
 {
-  "name": "big_code",
+  "name": "synapse-extension",
   "version": "1.0.0",
-  "description": "",
-  "main": "background.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Neuro-inclusive browser extension powered by Groq AI",
+  "author": "Ishaan Bansal",
+  "license": "MIT",
   "type": "commonjs",
+  "scripts": {
+    "test": "jest --testPathPattern=content.test.js"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "devDependencies": {
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0"
