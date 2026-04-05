@@ -97,12 +97,6 @@ Synapse was built with a **"Security-by-Design"** philosophy:
 - **On-Device Filtering**: Content discovery and DOM cleaning happen entirely in the client sandbox. Only the "Clean Text" is sent to the AI.
 - **Bias Mitigation**: Our prompts are engineered to avoid political or social bias, focusing strictly on *Linguistic Simplification*.
 
----
-
-## 📜 Roadmap & Future Goals
-- [ ] **Cross-Platform Syncing**: Persistent typography settings via Chrome Sync.
-- [ ] **LLM Adaptability**: Support for local LLMs (Ollama/WebLLM) for fully-offline reading.
-- [ ] **Community Focus Packs**: Custom CSS overrides for specific sites (Reddit, Github, StackOverflow).
 
 ---
 
