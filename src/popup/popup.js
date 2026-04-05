@@ -1,41 +1,58 @@
+// src/popup/popup.js
+// Compact, minimal logic for the Synapse neuro-inclusive popup.
+
 document.addEventListener('DOMContentLoaded', async () => {
     const tabs = document.querySelectorAll('.tab');
     const infoEl = document.getElementById('mode-info');
     const actionBtn = document.getElementById('action-btn');
-    const selector = document.querySelector('.selector');
+    const selector = document.querySelector('.tabs');
 
     let currentMode = 'text';
 
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const isYouTube = tab.url?.includes('youtube.com');
 
+    const MODES = {
+        text: {
+            info: 'Simplify page content for easier reading and focus.',
+            btn: 'Simplify Page'
+        },
+        vision: {
+            info: 'Explain complex charts or diagrams using Vision AI.',
+            btn: 'Explore Visuals'
+        }
+    };
+
     function updateUI() {
         if (isYouTube) {
             selector.style.display = 'none';
-            infoEl.textContent = 'A small comment toggle appears directly on YouTube video pages.';
-            actionBtn.textContent = 'Use inline toggle';
+            infoEl.textContent = 'A comment toggle appears directly on the YouTube video row.';
+            actionBtn.textContent = 'Use Page Toggle';
             actionBtn.disabled = true;
-            actionBtn.title = 'Toggle comments from the YouTube page';
             return;
         }
 
         selector.style.display = 'flex';
         actionBtn.disabled = false;
-        actionBtn.title = '';
 
-        if (currentMode === 'text') {
-            infoEl.textContent = 'Simplifies web content for better reading and focus.';
-            actionBtn.textContent = 'Process This Page';
-        } else if (currentMode === 'vision') {
-            infoEl.textContent = 'Analyzes visuals to provide clear, structured feedback.';
-            actionBtn.textContent = 'Capture Screen';
-        }
+        const config = MODES[currentMode];
+        infoEl.textContent = config.info;
+        actionBtn.textContent = config.btn;
+
+        // Reset fade animation
+        infoEl.classList.remove('fade-in');
+        void infoEl.offsetWidth; // Trigger reflow
+        infoEl.classList.add('fade-in');
     }
 
     tabs.forEach(t => {
         t.addEventListener('click', () => {
-            tabs.forEach(bt => bt.classList.remove('active'));
+            tabs.forEach(bt => {
+                bt.classList.remove('active');
+                bt.setAttribute('aria-selected', 'false');
+            });
             t.classList.add('active');
+            t.setAttribute('aria-selected', 'true');
             currentMode = t.dataset.mode;
             updateUI();
         });
@@ -43,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     actionBtn.addEventListener('click', () => {
         if (actionBtn.disabled) return;
-        actionBtn.textContent = 'Launching...';
+        actionBtn.textContent = 'Loading...';
         actionBtn.disabled = true;
 
         if (currentMode === 'text') {

@@ -1,142 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Synapse</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --bg: #fdfdfd;
+            --surface: #f3f4f6;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
             --accent: #3b82f6;
-            --accent-soft: rgba(59, 130, 246, 0.1);
-            --bg: #ffffff;
-            --text: #1e293b;
-            --text-soft: #64748b;
+            --border: #e5e7eb;
+            --radius: 8px;
         }
+
         body {
-            font-family: 'Outfit', sans-serif;
-            width: 280px;
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+            width: 260px; /* More compact width */
             margin: 0;
             padding: 0;
             background: var(--bg);
-            color: var(--text);
+            color: var(--text-primary);
+            font-size: 14px; /* Tighter font size */
+            line-height: 1.4;
             overflow: hidden;
-            border-radius: 20px;
         }
-        .header {
-            padding: 20px;
+
+        .container {
+            padding: 12px 16px; /* Compact padding */
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 12px;
-            border-bottom: 1px solid #f1f5f9;
         }
-        .logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background: var(--accent);
+
+        .header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
-        }
-        .title {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #0f172a;
-        }
-        .main {
-            padding: 20px;
-        }
-        .selector {
-            display: flex;
             gap: 8px;
-            background: #f1f5f9;
-            padding: 6px;
-            border-radius: 14px;
-            margin-bottom: 16px;
+            padding-bottom: 2px;
         }
+
+        .logo { font-size: 16px; }
+
+        .title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Tighter Segmented Control */
+        .tabs {
+            display: flex;
+            background: var(--surface);
+            padding: 3px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
         .tab {
             flex: 1;
-            padding: 8px;
+            padding: 4px 0;
             border: none;
             background: transparent;
-            border-radius: 10px;
+            border-radius: 4px;
             cursor: pointer;
+            font-family: inherit;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-soft);
-            transition: 0.3s;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
         }
+
         .tab.active {
             background: white;
-            color: var(--accent);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: var(--text-primary);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
         }
-        .info {
+
+        .info-text {
             font-size: 13px;
-            color: var(--text-soft);
-            margin-bottom: 18px;
-            min-height: 42px;
-            line-height: 1.4;
+            color: var(--text-secondary);
+            margin: 0;
+            min-height: 38px; /* Fixed height for 2 lines to avoid layout shift */
         }
+
+        /* Compact Primary Action */
         #action-btn {
             width: 100%;
             background: var(--accent);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 16px;
-            font-size: 15px;
+            padding: 10px;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+            transition: background 0.2s;
         }
-        #action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        #action-btn:active {
-            transform: translateY(0);
-        }
+
+        #action-btn:hover { background: #2563eb; }
+        #action-btn:active { transform: scale(0.98); }
         #action-btn:disabled {
-            background: #cbd5e1;
-            box-shadow: none;
+            background: #e5e7eb;
+            color: #9ca3af;
             cursor: not-allowed;
-            transform: none;
         }
+
         .footer {
-            padding: 0 20px 20px;
             font-size: 11px;
-            color: #cbd5e1;
+            color: #9ca3af;
             text-align: center;
+            padding-top: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">✨</div>
-        <div class="title">Synapse</div>
-    </div>
-    
-    <div class="main">
-        <div class="selector">
-            <button class="tab active" data-mode="text">Articles</button>
-            <button class="tab" data-mode="vision">Visuals</button>
-        </div>
-        
-        <div class="info" id="mode-info">
-            Select a mode or use the inline YouTube toggle when viewing a video.
-        </div>
-        
-        <button id="action-btn">Process This Page</button>
-    </div>
-    
-    <div class="footer">Enhancements Active Globally</div>
+    <div class="container">
+        <header class="header">
+            <span class="title">Synapse</span>
+        </header>
 
+        <nav class="tabs" role="tablist">
+            <button class="tab active" data-mode="text" role="tab" aria-selected="true">Reader</button>
+            <button class="tab" data-mode="vision" role="tab" aria-selected="false">Visuals</button>
+        </nav>
+
+        <div class="content-area">
+            <p class="info-text" id="mode-info">
+                Simplify page content for easier reading.
+            </p>
+        </div>
+
+        <button id="action-btn">
+            Simplify Page
+        </button>
+
+        <footer class="footer">
+            Active Globally
+        </footer>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>
