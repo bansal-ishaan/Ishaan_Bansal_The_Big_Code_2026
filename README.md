@@ -64,7 +64,7 @@ synapse/
 ### Installation
 1. **Clone & Extract**:
    ```bash
-   git clone https://github.com/bansal-ishaan/synapse.git
+   git clone https://github.com/bansal-ishaan/Ishaan_Bansal_The_Big_Code_2026.git
    ```
 2. **API Configuration**:
    Open `config.js` and input your key:
