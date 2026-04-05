@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "test": "jest --testPathPattern=content.test.js"
+    "test": "jest --testPathPatterns=content.test.js"
   },
   "jest": {
     "testEnvironment": "jsdom"

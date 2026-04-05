@@ -5,7 +5,10 @@
   "description": "Dynamically simplifies web layouts and text for cognitive accessibility.",
   "permissions": [
     "activeTab",
-    "scripting"
+    "tabs",
+    "scripting",
+    "storage",
+    "alarms"
   ],
   "background": {
     "service_worker": "background.js",
@@ -16,9 +19,21 @@
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": [
+        "src/youtube/core/stateModule.js",
+        "src/youtube/text/commentShield.js",
+        "src/youtube/visual/shortsGuard.js",
+        "src/youtube/core/hudModule.js",
+        "youtube.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
   "action": {
-    "default_title": "Process this page"
+    "default_title": "Synapse Launcher",
+    "default_popup": "src/popup/popup.html"
   }
 }

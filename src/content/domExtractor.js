@@ -101,6 +101,16 @@ export function extractAndTagContent() {
             textContent = (el.innerText || el.textContent || '').trim();
             // Code/callout blocks can be short; skip tiny junk for everything else
             if (!isCodeNode && textContent.length <= 20) continue;
+            
+            // Headings shorter than 30 chars are likely nav labels (e.g. 'Breaking News', 'Notifications')
+            const isHeading = /^H[1-6]$/.test(el.tagName);
+            if (isHeading && textContent.length < 30) continue;
+            
+            // List items shorter than 40 chars on news sites are usually nav/menu items
+            if (el.tagName === 'LI' && textContent.length < 40) continue;
+            
+            // Skip items that are pure section-label patterns (title case, no periods/commas)
+            if (isHeading && !/[.,:;!?]/.test(textContent) && textContent.split(' ').length <= 4) continue;
         }
 
         // ── 6. TAG & PUSH ────────────────────────────────────────────────────

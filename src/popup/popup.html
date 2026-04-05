@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Synapse Launcher</title>
+    <style>
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            width: 320px;
+            margin: 0;
+            padding: 24px;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon {
+            background: #3b82f6;
+            color: white;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .mode-selector {
+            display: flex;
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            transition: 0.2s;
+        }
+        .mode-btn.active {
+            background: white;
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .description {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+        #error-box {
+            background: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fecaca;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        #activate-btn {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #activate-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        #activate-btn:not(:disabled):hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h2><span class="icon">✨</span> Synapse</h2>
+    
+    <div class="mode-selector">
+        <button class="mode-btn active" data-mode="text">Articles</button>
+        <button class="mode-btn" data-mode="youtube">YouTube</button>
+        <button class="mode-btn" data-mode="vision">Visuals</button>
+    </div>
+
+    <div class="description" id="mode-desc">
+        Simplifies web layouts and text for cognitive accessibility. Focuses on articles and blogs.
+    </div>
+
+    <div id="error-box"></div>
+
+    <button id="activate-btn">Process This Page</button>
+
+    <script src="popup.js"></script>
+</body>
+</html>

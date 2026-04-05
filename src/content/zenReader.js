@@ -44,7 +44,13 @@ export function injectZenReader(scorer) {
                     <div style="width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg,#a78bfa,#818cf8);
                                 display:flex; justify-content:center; align-items:center; font-size:18px;
                                 box-shadow:0 4px 15px rgba(167,139,250,0.4);">✨</div>
-                    <h1 style="margin:0; font-size:26px; font-weight:700; color:#f8fafc; letter-spacing:-0.5px;">Synapse</h1>
+                    <div>
+                        <h1 style="margin:0; font-size:26px; font-weight:700; color:#f8fafc; letter-spacing:-0.5px;">Synapse</h1>
+                        <select id="neuro-analysis-mode" style="margin-top:4px; background:rgba(30,41,59,0.8); border:1px solid rgba(129,140,248,0.3); color:#e2e8f0; padding:2px 6px; border-radius:4px; font-size:12px;">
+                            <option value="text">Text Analysis</option>
+                            <option value="video">Video Analysis</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div style="display:flex; gap:24px; align-items:center;">
@@ -145,6 +151,7 @@ export function injectZenReader(scorer) {
     wireSliders();
     wireToggles();
     wireCloseButton(overlay);
+    wireModeSelector();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -275,6 +282,37 @@ function wireCloseButton(overlay) {
             document.body.appendChild(badge);
         } else {
             badge.style.display = 'block';
+        }
+    });
+}
+
+function wireModeSelector() {
+    const modeSelect = document.getElementById('neuro-analysis-mode');
+    const statusEl = document.getElementById('neuro-status-text');
+    const statusBox = document.getElementById('neuro-ai-status');
+
+    modeSelect.addEventListener('change', () => {
+        const selectedMode = modeSelect.value;
+        if (selectedMode === 'video') {
+            // Check if on YouTube
+            if (window.location.hostname.includes('youtube.com')) {
+                // Switch to YouTube mode - hide text UI and show YouTube HUD
+                const overlay = document.getElementById('neuro-zen-overlay');
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+                // The YouTube script should handle showing its HUD
+                alert('Switched to Video Analysis mode. Use the floating Synapse panel on the bottom-right.');
+            } else {
+                // Show error
+                if (statusEl) statusEl.innerText = 'Video analysis is only available on YouTube pages.';
+                if (statusBox) statusBox.style.display = 'block';
+                modeSelect.value = 'text'; // Reset to text
+            }
+        } else {
+            // Text mode - ensure overlay is shown
+            const overlay = document.getElementById('neuro-zen-overlay');
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
     });
 }
